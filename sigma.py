@@ -55,7 +55,7 @@ if __name__ == '__main__':
     # Have to use ipConstraint otherwise not enough degrees of freedom
     ma.vertexTree('Sigma+:loose', 0, ipConstraint = True, massConstraint = [111], 
                    updateAllDaughters = False, path = mp)
-    ma.applyCuts('Sigma+:loose', 'abs(dM) < 0.03', path = mp)
+#     ma.applyCuts('Sigma+:loose', 'abs(dM) < 0.03', path = mp)
     
     ma.matchMCTruth('Sigma+:loose', path = mp)
     
