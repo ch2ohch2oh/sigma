@@ -48,23 +48,27 @@ if __name__ == '__main__':
     stdPhotons('all', path = mp)
     stdPhotons('pi0eff50', path = mp)
     ma.copyList('gamma:for_pi0', 'gamma:pi0eff50', path = mp)
-    ma.reconstructDecay(f'pi0:for_sigma -> gamma:for_pi0 gamma:for_pi0', 'abs(dM) < 0.02', path = mp)
+    ma.reconstructDecay(f'pi0:for_sigma -> gamma:for_pi0 gamma:for_pi0', '0.11 < M < 0.17', path = mp)
+    
     stdPr('loose', path = mp) # good tracks and protonID > 0.1
-    ma.reconstructDecay('Sigma+:loose -> p+:loose pi0:for_sigma', 'abs(dM) < 0.05', path = mp)
-    ma.vertexTree('Sigma+:loose', 0, ipConstraint = True, massConstraint = [111], path = mp)
-    ma.applyCuts('Sigma+:loose', '1.16 < M < 1.22', path = mp)
+    ma.reconstructDecay('Sigma+:loose -> p+:loose pi0:for_sigma', '1.14 < M < 1.24', path = mp)
+    ma.vertexTree('Sigma+:loose', 0, ipConstraint = True, massConstraint = [111], 
+                   updateAllDaughters = False, path = mp)
+    ma.applyCuts('Sigma+:loose', '1.17 < M < 1.21', path = mp)
     
     ma.matchMCTruth('Sigma+:loose', path = mp)
     
     va.addAlias('cosa', 'cosAngleBetweenMomentumAndVertexVector')
     va.addAlias('cosaXY', 'cosAngleBetweenMomentumAndVertexVectorInXYPlane')
     va.addAlias('abs_dM', 'abs(dM)')
+    va.addAlias('M_noupdate', 'extraInfo(M_noupdate)')
+    va.addAlias('p_noupdate', 'extraInfo(p_noupdate)')
     
     ntuple = ['M', 'p', 'chiProb', 'cosa', 'cosaXY', 'dr', 'dz', 'distance', 'isSignal', 'genMotherPDG']
     ntuple += ['IPX', 'IPY', 'IPZ']
     ntuple += create_aliases_for_selected(['protonID', 'pionID', 'dr', 'dz', 'p', 'isSignal'],
                                           'Sigma+ -> ^p+ pi0', prefix = ['p'])
-    ntuple += create_aliases_for_selected(['p', 'M', 'distance', 'isSignal', 'genMotherPDG'],
+    ntuple += create_aliases_for_selected(['mcP', 'p', 'M', 'distance', 'isSignal', 'genMotherPDG', 'M_noupdate', 'p_noupdate'],
                                           'Sigma+ -> p+ ^pi0', prefix = ['pi0'])
     
     ma.variablesToNtuple('Sigma+:loose', ntuple, treename = 'sigma', filename = outfile, path = mp)
