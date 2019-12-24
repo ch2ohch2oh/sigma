@@ -48,12 +48,12 @@ if __name__ == '__main__':
     stdPhotons('all', path = mp)
     stdPhotons('pi0eff50', path = mp)
     ma.copyList('gamma:for_pi0', 'gamma:pi0eff50', path = mp)
-    ma.reconstructDecay(f'pi0:for_sigma -> gamma:for_pi0 gamma:for_pi0', '0.10 < M < 0.16', path = mp)
+    ma.reconstructDecay(f'pi0:for_sigma -> gamma:for_pi0 gamma:for_pi0', '0.12 < M < 0.145', path = mp)
     
     stdPr('loose', path = mp) # good tracks and protonID > 0.1
     ma.reconstructDecay('Sigma+:loose -> p+:loose pi0:for_sigma', 'abs(dM) < 0.05', path = mp)
     # Have to use ipConstraint otherwise not enough degrees of freedom
-    ma.vertexTree('Sigma+:loose', 0, ipConstraint = True, massConstraint = [], 
+    ma.vertexTree('Sigma+:loose', 0, ipConstraint = True, massConstraint = [111], 
                    updateAllDaughters = False, path = mp)
     ma.applyCuts('Sigma+:loose', 'abs(dM) < 0.03', path = mp)
     
