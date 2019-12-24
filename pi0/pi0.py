@@ -43,7 +43,7 @@ if __name__ == '__main__':
     ma.inputMdstList('default', [infile], path = mp)
 
     stdPhotons('all', path = mp)
-    ma.reconstructDecay('pi0:all -> gamma:all gamma:all', '0.1 < M < 0.17', path = mp)
+    ma.reconstructDecay('pi0:all -> gamma:all gamma:all', 'abs(dM) < 0.02', path = mp)
 #     ma.vertexTree('pi0:all', 0, ipConstraint = True, massConstraint = [111], path = mp)
     ma.matchMCTruth('pi0:all', path = mp)
     ntuple = ['M', 'p', 'mcP', 'isSignal']
