@@ -25,4 +25,4 @@ def stdSigmas(gammatype = 'pi0eff50', path = None):
     ma.reconstructDecay('Sigma+:std -> p+:loose pi0:for_sigma', '1.1 < M < 1.3', path = path)
     ma.vertexTree('Sigma+:std', 0, ipConstraint = True, massConstraint = [111], 
                    updateAllDaughters = False, path = path)
-    ma.applyCuts('Sigma+:std', '1.66 < M < 1.22', path = path)
+    ma.applyCuts('Sigma+:std', '1.16 < M < 1.22', path = path)
