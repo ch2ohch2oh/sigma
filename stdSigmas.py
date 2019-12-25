@@ -31,7 +31,7 @@ def stdSigmas(listtype = 'std', gammatype = 'pi0eff50', path = None):
     if listtype == 'std':
         pass
     elif listtype == 'loose':
-        vtx_cuts = 'cosaXY > 0.99 and dr > 0.12 and abs(dz) > 0.1'
+        vtx_cuts = 'cosaXY > 0.99 and dr > 0.12 and abs(dz) > 0.1 and chiProb > 0.001'
         ma.cutAndCopyList('Sigma+:loose', 'Sigma+:std', vtx_cuts, path = path)
     else:
         B2ERROR(f'stdSigmas: Invalid listtype ({listtype}. Choose from std, loose.')
