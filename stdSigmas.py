@@ -1,11 +1,11 @@
-import basf2 as b2
+from basf2 import B2ERROR
 import modularAnalysis as ma
 
 from stdPi0s import stdPi0s
 from stdCharged import stdPr
 from stdPhotons import stdPhotons
 
-def stdSigmas(gammatype = 'pi0eff50', path = None):
+def stdSigmas(listtype = 'std', gammatype = 'pi0eff50', path = None):
     """
     Load standard ``Sigma+`` reconstructed from ``Sigma+ -> p+ [pi0 -> gamma gamma]```.
     The ``pi0`` is reconstructed using the specified gamma list and ``pi0``s in mass range
@@ -19,6 +19,7 @@ def stdSigmas(gammatype = 'pi0eff50', path = None):
         gamma_type (str): the gamma list to use
         path (basf2.path): path to load the particle list
     """
+  
     stdPhotons(gammatype, path = path)
     stdPr('loose', path = path)
     ma.reconstructDecay(f'pi0:for_sigma -> gamma:{gammatype} gamma:{gammatype}', '0.1 < M < 0.16', path = path)
@@ -26,3 +27,11 @@ def stdSigmas(gammatype = 'pi0eff50', path = None):
     ma.vertexTree('Sigma+:std', 0, ipConstraint = True, massConstraint = [111], 
                    updateAllDaughters = False, path = path)
     ma.applyCuts('Sigma+:std', '1.16 < M < 1.22', path = path)
+
+    if listtype == 'std':
+        pass
+    elif listtype == 'loose':
+        vtx_cuts = 'cosaXY > 0.99 and dr > 0.12 and abs(dz) > 0.1'
+        ma.cutAndCopyList('Sigma+:loose', 'Sigma+:std', vtx_cuts, path = path)
+    else:
+        B2ERROR(f'stdSigmas: Invalid listtype ({listtype}. Choose from std, loose.')
