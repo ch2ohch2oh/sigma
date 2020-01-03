@@ -58,10 +58,10 @@ if __name__ == '__main__':
     ma.reconstructDecay('Sigma+:std -> p+:good pi0:mdst', '1.1 < M < 1.3', path = mp)
     ma.vertexTree('Sigma+:std', 0, ipConstraint = True, updateAllDaughters = True, path = mp)
     # Select good pi0 based on mass and gamma energy
-    ma.applyCuts('Sigma+:std', 'daughter(1, daughter(0, E)) > 0.04 and daughter(1, daughter(1, E)) > 0.04 and daughter(1, abs(dM)) < 0.2', path = mp)
+    ma.applyCuts('Sigma+:std', 'daughter(1, daughter(0, E)) > 0.04 and daughter(1, daughter(1, E)) > 0.04 and daughter(1, abs(dM)) < 0.02', path = mp)
     ma.vertexTree('Sigma+:std', 0, ipConstraint = True, massConstraint = ['pi0'], path = mp)
     # 100 MeV mass window for Sigma+ should be large enough
-    ma.applyCuts('Sigma+:std', 'cosaXY > 0 and daughter(1, p) > 0.1 and 1.14 < M < 1.24', path = mp)
+    ma.applyCuts('Sigma+:std', 'cosaXY > 0 and daughter(1, p) > 0.1 and 1.16 < M < 1.22', path = mp)
     ma.matchMCTruth('Sigma+:std', path = mp)
     
     ntuple = ['M', 'p', 'chiProb', 'cosa', 'cosaXY', 'dr', 'dz', 'distance', 'isSignal', 'genMotherPDG']
