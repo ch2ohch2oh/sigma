@@ -51,7 +51,7 @@ if __name__ == '__main__':
     ma.reconstructDecay(f'pi0:for_sigma -> gamma:for_pi0 gamma:for_pi0', '0.1 < M < 0.16', path = mp)
     
     stdPr('loose', path = mp) # good tracks and protonID > 0.1
-    ma.reconstructDecay('Sigma+:loose -> p+:loose pi0:for_sigma', 'abs(dM) < 0.1', path = mp)
+    ma.reconstructDecay('Sigma+:loose -> p+:loose pi0:for_sigma', '1.1 < M < 1.3', path = mp)
     # Have to use ipConstraint otherwise not enough degrees of freedom
     ma.vertexTree('Sigma+:loose', 0, ipConstraint = True, massConstraint = [111], 
                    updateAllDaughters = False, path = mp)
